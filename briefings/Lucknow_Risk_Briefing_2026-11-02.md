@@ -6,11 +6,11 @@
 
 **Year-ago contrast.** Food costs 7.74% more than a year ago; last September prices were falling.
 
-**Fertiliser.** Winter sowing began with stocks 38% above last year, so the March and April harvest looks protected.
+**Fertiliser.** Stocks are 38% above last year, protecting the March and April harvest.
 
 **Price pipeline.** What shops pay suppliers rose 11.39% against 5.54% in the shops. Expect shop prices to follow in December and January.
 
-**Savings buffer.** National savings fell to $719.75 billion (23 October). The forward-sales figure dates from 30 September, so the free amount is approximate.
+**Savings buffer.** National savings fell to $719.75 billion (23 October). The forward-sales figure is older (30 September), so treat the free amount as approximate.
 
 **Rain and ocean.** The binding read is 87% of normal nationally; Uttar Pradesh finished 8% above. Pacific warming is a record +3.3°C on the standard measure.
 
