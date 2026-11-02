@@ -1,6 +1,6 @@
 # Lucknow Risk — 2 November 2026
 
-**Readiness: L4, Sit tight.** Strain is 54 out of 100. The verdict stays C — Critical: essentials under strain. No reading changed colour.
+**Readiness: L4, Sit tight.** Strain is 54 out of 100. The verdict stays Critical: essentials under strain. No reading changed colour.
 
 **What moved.** Oil fell about 7% to roughly $106 a barrel (Brent, the world price) after the US and Iran signalled room for talks. The shipping route near Iran stays closed. The rupee holds near ₹94.86.
 
