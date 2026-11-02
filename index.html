@@ -154,7 +154,7 @@
     <div>
       <div class="label">Where we are</div>
       <div class="verdict" id="verdict"><!--auto:start-->
-<span style="color:var(--red)">C — Critical: essentials under strain</span>
+<span style="color:var(--red)">Critical: essentials under strain</span>
 <!--auto:end--></div>
       <div class="desc" id="verdictDesc"><!--auto:start-->
 Water, food and health take priority. Hold cash for everything except essential installs.
@@ -190,7 +190,7 @@ Water, food and health take priority. Hold cash for everything except essential 
         <p>The early warning signs have not eased. The Pacific is still very warm, which points to a hard summer in 2027.</p><div class="none">Nothing to do yet. Just watch.</div></div>
       <div class="sumrow"><div class="bar" style="background:var(--green)"></div>
         <h3><span>🌫 Air</span><span class="pill" style="background:var(--green)">Fine</span></h3>
-        <p>The air is fine today. Diwali on 8 November and the winter cold will make it worse.</p><div class="do">Now: <b>run the air purifier in the elders’ room from Diwali, 8 November.</b></div></div>
+        <p>The air is fine today. Diwali on 8 November and the winter cold will make it worse.</p><div class="later">Can wait: <b>if readings pass 200, run an air purifier in the elders’ room.</b></div></div>
     </div>
     <label class="sum-more" for="v-det">See the full details ›</label>
   </div>
@@ -356,7 +356,7 @@ Water, food and health take priority. Hold cash for everything except essential 
 <!--auto:end--></div>
 
   <h2 class="sec" style="border-left:4px solid var(--green)">🌫 Is the air safe?</h2>
-  <div class="takeaway"><b style="color:var(--green)">Readings eased to about <b>60</b> in the first days of November, in the fine range, against 168 on a private tracker on 15 October; trackers disagree. Smog usually climbs after Diwali on 8 November and through the winter cold. <b>Run an air purifier in the elders’ room now</b>, and keep the elderly indoors on days above 300.</b></div>
+  <div class="takeaway"><b style="color:var(--green)">Readings eased to about <b>60</b> in the first days of November, in the fine range, against 168 on a private tracker on 15 October; trackers disagree. Smog usually climbs after Diwali on 8 November and through the winter cold. No purifier is needed yet. <b>If readings pass 200, run one in the elders’ room</b>, and keep the elderly indoors on days above 300.</b></div>
   <div class="grid" id="grid-air"><!--auto:start-->
 <div class="card"><div class="bar" style="background:var(--green)"></div>
         <h3><span>Air quality</span><span class="pill" style="background:var(--green)">Fine</span></h3>
@@ -502,11 +502,11 @@ const GROUPS=[
 const MET={}; METRICS.forEach(m=>MET[m.id]=m);
 
 const SCEN = {
-  alert:{name:'C — Critical: essentials under strain', color:'var(--red)',
+  alert:{name:'Critical: essentials under strain', color:'var(--red)',
     desc:'Water, food and health take priority. Hold cash for everything except essential installs.'},
-  watch:{name:'B — Serious: a sustained squeeze', color:'var(--gold)',
+  watch:{name:'Serious: a sustained squeeze', color:'var(--gold)',
     desc:'Tighten the budget, build up savings, fix big costs now, fill the store cupboard.'},
-  calm:{name:'A / D — Stable for now', color:'var(--green)',
+  calm:{name:'Stable for now', color:'var(--green)',
     desc:'Nothing urgent. An inexpensive, unhurried window to get the slow jobs done.'},
 };
 
