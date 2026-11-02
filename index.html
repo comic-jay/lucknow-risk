@@ -117,6 +117,24 @@
     body{padding:14px 11px 36px}
     .card h3{flex-wrap:wrap;gap:5px}
   }
+
+  /* Summary / Details toggle: pure CSS, works with JavaScript off */
+  .vt{position:absolute;opacity:0;pointer-events:none}
+  .vtoggle{display:inline-flex;background:var(--slate2);border:1px solid #d7dee1;border-radius:999px;padding:3px;margin:0 0 14px}
+  .vtoggle label{font-size:13.5px;font-weight:700;padding:6px 18px;border-radius:999px;cursor:pointer;color:var(--mute);user-select:none}
+  #v-sum:checked ~ .vtoggle label[for=v-sum], #v-det:checked ~ .vtoggle label[for=v-det]{background:var(--teal);color:#fff}
+  .vt:focus-visible ~ .vtoggle{outline:2px solid var(--teal);outline-offset:2px}
+  .view-det{display:none}
+  #v-det:checked ~ .view-det{display:block}
+  #v-det:checked ~ .view-sum{display:none}
+  .sumlist{display:grid;gap:10px;margin:6px 0 4px}
+  .sumrow{background:var(--slate2);border:1px solid #dde4e6;border-radius:11px;padding:12px 14px 11px 16px;position:relative;overflow:hidden}
+  .sumrow .bar{position:absolute;top:0;left:0;width:5px;height:100%}
+  .sumrow h3{font-size:15px;font-weight:700;display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .sumrow p{font-size:14.5px;margin-top:3px}
+  .sumrow .do{font-size:14px;margin-top:5px;color:var(--teal-lt);font-weight:600}
+  .sumrow .do b{color:var(--cream)}
+  .sum-more{display:block;text-align:center;font-size:13.5px;font-weight:700;color:var(--teal-lt);padding:10px;cursor:pointer;margin-top:4px}
 </style>
 </head>
 <body>
@@ -124,6 +142,10 @@
     <h1>North India Risk Dashboard</h1>
     <div class="sub">Plain English · Lucknow · 2 November 2026</div>
   </div>
+
+  <input type="radio" name="view" id="v-sum" class="vt" checked>
+  <input type="radio" name="view" id="v-det" class="vt">
+  <div class="vtoggle" role="tablist"><label for="v-sum">Summary</label><label for="v-det">Details</label></div>
 
   <div class="banner">
     <div>
@@ -146,6 +168,31 @@ Water, food and health take priority. Hold cash. Do not commit to anything large
     <div class="ab-txt"><div class="k">Do this now</div>Too late to build — run what you own and keep money within reach.</div>
 <!--auto:end--></div>
 
+  <div class="view-sum">
+    <div class="sumlist">
+      <div class="sumrow"><div class="bar" style="background:var(--red)"></div>
+        <h3><span>💧 Water</span><span class="pill" style="background:var(--red)">Gone wrong</span></h3>
+        <p>The rains were weak across India this year. Lucknow’s taps should be fine this winter. Next summer could be hard.</p><div class="do">Do: <b>get a water tank fitted before March.</b></div></div>
+      <div class="sumrow"><div class="bar" style="background:var(--gold)"></div>
+        <h3><span>🌾 Food</span><span class="pill" style="background:var(--gold)">Watch it</span></h3>
+        <p>Food costs about 8% more than last year. It will likely rise further by January.</p><div class="do">Do: <b>buy winter staples this month.</b></div></div>
+      <div class="sumrow"><div class="bar" style="background:var(--red)"></div>
+        <h3><span>⚡ Power</span><span class="pill" style="background:var(--red)">Strained</span></h3>
+        <p>Lucknow city is being protected from power cuts for now. Villages are not. Oil eased a little on talk of peace.</p><div class="do">Do: <b>keep the inverter charged.</b></div></div>
+      <div class="sumrow"><div class="bar" style="background:var(--gold)"></div>
+        <h3><span>💰 Money</span><span class="pill" style="background:var(--gold)">Watch it</span></h3>
+        <p>Everyday costs are rising faster than last year. Loans now cost more.</p><div class="do">Do: <b>keep cash within reach and avoid big new commitments.</b></div></div>
+      <div class="sumrow"><div class="bar" style="background:var(--red)"></div>
+        <h3><span>🔍 What is coming</span><span class="pill" style="background:var(--red)">Warning</span></h3>
+        <p>The early warning signs have not eased. The Pacific is still very warm, which points to a hard summer in 2027.</p></div>
+      <div class="sumrow"><div class="bar" style="background:var(--green)"></div>
+        <h3><span>🌫 Air</span><span class="pill" style="background:var(--green)">Fine</span></h3>
+        <p>The air is fine today. Diwali on 8 November and the winter cold will make it worse.</p><div class="do">Do: <b>run the air purifier in the elders’ room.</b></div></div>
+    </div>
+    <label class="sum-more" for="v-det">See the full details ›</label>
+  </div>
+
+  <div class="view-det">
   <details class="key">
     <summary>What the colours and levels mean</summary>
     <div class="cols">
@@ -337,6 +384,7 @@ Water, food and health take priority. Hold cash. Do not commit to anything large
       <h4><span class="tag" style="color:var(--red)">L4</span> Sit tight <span class="nowtag">We are here</span></h4>
       <ul><li><b style="color:var(--teal)">Start no new installations</b> — use what you have.</li><li>Water first: fill every container, sort purification and cooling.</li><li>Extra staples now, ahead of the price rises.</li><li>Postpone anything large you don’t strictly need.</li></ul></div>
 <!--auto:end--></div>
+  </div>
 
   <div class="disc">Figures as of 2 November 2026. Thresholds set in advance so they can’t be argued with later. A personal planning aid — not financial advice, not an official forecast.</div>
 
