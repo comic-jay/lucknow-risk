@@ -217,7 +217,7 @@ Water, food and health take priority. Hold cash for everything except essential 
   </details>
 
   <h2 class="sec" style="border-left:4px solid var(--red)">💧 Will there be enough water?</h2>
-  <div class="takeaway"><b style="color:var(--red)">The monsoon ended at <b>87%</b> of normal nationally, the fourth-weakest since 2001, though Uttar Pradesh finished 8% above normal. Pacific warming measured <b>+2.5°C</b> in the latest weekly reading, below the record +3.3°C earlier in October but still severe. Reservoirs held 70% nationally in late September, against 79% a year ago.<br><br>Your taps should hold through winter; <b>next summer</b> is the risk. Your tank draws on groundwater, which is low. Fit rainwater harvesting before the June rains.</b></div>
+  <div class="takeaway"><b style="color:var(--red)">The monsoon ended at <b>87%</b> of normal nationally, the fourth-weakest since 2001, though Uttar Pradesh finished 8% above normal. Pacific warming stands at a record <b>+3.3°C</b> on the standard weekly measure (mid-October). Reservoirs held 70% nationally in late September, against 79% a year ago.<br><br>Your taps should hold through winter; <b>next summer</b> is the risk. Your tank draws on groundwater, which is low. Fit rainwater harvesting before the June rains.</b></div>
   <div class="grid" id="grid-water"><!--auto:start-->
 <div class="card"><div class="bar" style="background:var(--red)"></div>
         <h3><span>This year’s rain</span><span class="pill" style="background:var(--red)">Gone wrong</span></h3>
@@ -233,9 +233,9 @@ Water, food and health take priority. Hold cash for everything except essential 
 <div class="card"><div class="bar" style="background:var(--red)"></div>
         <h3><span>Pacific warming (El Niño)</span><span class="pill" style="background:var(--red)">Gone wrong</span></h3>
         <div class="whatis">Sounds remote, but it’s our best early warning — when this ocean warms, our monsoon weakens a year later.</div>
-        <div class="valrow"><span class="valnum">2.5</span><span class="unit">°C above normal</span></div>
+        <div class="valrow"><span class="valnum">3.3</span><span class="unit">°C above normal</span></div>
         <div class="yrago worse"><span>Sept 2025: <span class="yv">about zero</span></span><span class="ynote">the ocean was cooling, not warming</span></div>
-        <div class="mdesc">No new weekly reading: <b>+2.5°C</b> (NOAA, 26 October), below the record +3.3°C earlier in October but still severe. Forecasts put the peak between November and January. It sets up next year: a weaker winter crop, an early hard summer, heavy strain on the grid.</div>
+        <div class="mdesc"><b>+3.3°C</b> on the standard weekly measure (US weather agency, week of 14 October), a record, and flat since. An adjusted measure reads lower, near +2.5°C. Forecasts put the peak between November and January. It sets up next year: a weaker winter crop, an early hard summer, heavy strain on the grid.</div>
         <div class="scale">
           <span><i class="dot" style="background:var(--green)"></i>Normal under +0.5°C</span>
           <span><i class="dot" style="background:var(--gold)"></i>Concerning +0.5–2°C</span>
@@ -339,7 +339,7 @@ Water, food and health take priority. Hold cash for everything except essential 
 <!--auto:end--></div>
 
   <h2 class="sec" style="border-left:4px solid var(--teal-lt)">🔍 Indicators of what is to come</h2>
-  <div class="takeaway"><b style="color:var(--red)">These turn before shop prices do. Two of the five main readings are severe: Pacific warming at <b>+2.5°C</b> and a monsoon <b>13%</b> short. Oil eased to about <b>$106</b> on talk of US–Iran negotiations, but nothing is agreed. What shops pay suppliers has jumped to <b>11.39%</b>.<br><br>The buffers keep thinning. Savings fell for a seventh week to <b>$719.75 billion</b>, while promised future dollar sales reached a record <b>$239.2 billion</b> at the end of September.</b></div>
+  <div class="takeaway"><b style="color:var(--red)">These turn before shop prices do. Two of the five main readings are severe: Pacific warming at <b>+3.3°C</b> and a monsoon <b>13%</b> short. Oil eased to about <b>$106</b> on talk of US–Iran negotiations, but nothing is agreed. What shops pay suppliers has jumped to <b>11.39%</b>.<br><br>The buffers keep thinning. Savings fell for a seventh week to <b>$719.75 billion</b>, while promised future dollar sales reached a record <b>$239.2 billion</b> at the end of September.</b></div>
   <div class="grid" id="grid-ctx"><!--auto:start-->
 <div class="card"><div class="bar" style="background:var(--red)"></div>
         <h3><span>What shops pay suppliers</span><span class="pill" style="background:var(--red)">Twice your rate</span></h3>
@@ -456,11 +456,11 @@ const METRICS = [
     calm:'Fine over 90%', watch:'Worrying 75–90%', alert:'Serious under 75%',
     t:{calmMin:90, alertMax:75}},
 
-  {id:'enso', name:'Pacific warming (El Niño)', unit:'°C above normal', base:2.5, dir:'up',
+  {id:'enso', name:'Pacific warming (El Niño)', unit:'°C above normal', base:3.3, dir:'up',
     hist:[{d:'Apr',v:0.48},{d:'May',v:0.94},{d:'Jun',v:1.7},{d:'15 Jul',v:1.8},{d:'15 Aug',v:2.6},{d:'2 Sep',v:1.8},{d:'15 Sep',v:2.9},{d:'1 Oct',v:3.1},{d:'15 Oct',v:3.3},{d:'1 Nov',v:2.5}],
     prev:'about zero', prevWhen:'Sept 2025', prevDir:'worse', prevNote:'the ocean was cooling, not warming',
     whatis:'Sounds remote, but it’s our best early warning — when this ocean warms, our monsoon weakens a year later.',
-    desc:'No new weekly reading: <b>+2.5°C</b> (NOAA, 26 October), below the record +3.3°C earlier in October but still severe. Forecasts put the peak between November and January. It sets up next year: a weaker winter crop, an early hard summer, heavy strain on the grid.',
+    desc:'<b>+3.3°C</b> on the standard weekly measure (US weather agency, week of 14 October), a record, and flat since. An adjusted measure reads lower, near +2.5°C. Forecasts put the peak between November and January. It sets up next year: a weaker winter crop, an early hard summer, heavy strain on the grid.',
     calm:'Normal under +0.5°C', watch:'Concerning +0.5–2°C', alert:'Severe over +2°C',
     t:{calmMax:0.5, alertMin:2.0}},
 

@@ -12,10 +12,10 @@
 
 **Savings buffer.** National savings fell to $719.75 billion (23 October). The forward-sales figure dates from 30 September, so the free amount is approximate.
 
-**Rain.** The binding read is 87% of normal nationally. Uttar Pradesh finished 8% above normal.
+**Rain and ocean.** The binding read is 87% of normal nationally; Uttar Pradesh finished 8% above. Pacific warming is a record +3.3°C on the standard measure.
 
-**Watch:** cost of living on 12 November; air after Diwali on 8 November; any US–Iran deal.
+**Now:** book rooftop solar for fitting before March; buy two months of staples; keep cash reachable.
 
-**Do:** start no new installations. Store water, buy winter staples, keep money reachable. (General information, not personal advice.)
+**Can wait:** rainwater harvesting by May; an air purifier if readings pass 200. (General information, not personal advice.)
 
-Sources: Oilprice.com, Memesita/PTI, RBI, MOSPI, IMD, NOAA.
+Sources: Oilprice.com, PTI, RBI, MOSPI, IMD, IRI/NOAA.
