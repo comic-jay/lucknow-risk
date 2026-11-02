@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>North India Risk Dashboard — plain English</title>
+<style>
+  :root{
+    color-scheme: light;
+    --slate:#eef1f3; --slate2:#ffffff; --teal:#0e8c8b; --teal-lt:#0d8280;
+    --gold:#d99400; --red:#c0433a; --green:#4e9666; --cream:#1b2a30; --mute:#5f7580;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--slate);color:var(--cream);line-height:1.5;padding:26px 30px 50px;}
+  h1{font-family:Georgia,serif;font-size:27px;font-weight:700}
+  .sub{color:var(--teal-lt);font-style:italic;font-size:13.5px;margin-top:3px}
+  .top{border-bottom:1px solid #d7dee1;padding-bottom:14px;margin-bottom:18px}
+
+  .banner{border-radius:14px;padding:16px 22px;margin-bottom:14px;display:flex;
+    justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;
+    background:linear-gradient(135deg,var(--slate2),#eef4f5);border:1px solid #d7dee1}
+  .banner .label{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:var(--mute)}
+  .banner .verdict{font-family:Georgia,serif;font-size:24px;font-weight:700;margin-top:2px}
+  .banner .desc{font-size:14px;max-width:560px;margin-top:5px;color:var(--mute)}
+  .seg{border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    font-weight:800;color:#0c1a1f;min-width:132px;padding:10px 18px}
+  .seg small{font-size:9px;font-weight:700;opacity:.85;letter-spacing:.5px}
+  .seg .tm{font-size:10px;font-weight:700;margin-top:2px}
+
+  .actionbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;border-radius:14px;
+    padding:13px 18px;margin-bottom:8px;border:1px solid #d7dee1}
+  .actionbar .lvl{display:flex;flex-direction:column;align-items:center;justify-content:center;
+    border-radius:9px;min-width:70px;padding:7px 11px;color:#0c1a1f;font-weight:800}
+  .actionbar .lvl b{font-size:19px;font-family:Georgia,serif;line-height:1}
+  .actionbar .lvl small{font-size:9.5px;font-weight:700;letter-spacing:.4px;text-transform:uppercase}
+  .actionbar .ab-txt{flex:1;min-width:230px;font-size:15px}
+  .actionbar .ab-txt .k{font-size:10.5px;letter-spacing:1.1px;text-transform:uppercase;color:var(--mute)}
+
+  details.key{background:var(--slate2);border:1px solid #d7dee1;border-radius:11px;padding:10px 16px;margin-bottom:20px}
+  details.key summary{font-size:13px;color:var(--teal-lt);cursor:pointer;font-weight:600}
+  details.key .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px 26px;margin-top:11px}
+  .okey-h{font-size:10.5px;text-transform:uppercase;letter-spacing:1px;color:var(--mute);margin-bottom:4px}
+  .okey-row{font-size:12.5px;padding:2px 0;display:flex;gap:7px;line-height:1.4}
+  .okey-row i.dot{margin-top:6px;flex:0 0 auto}
+
+  h2.sec{font-family:Georgia,serif;font-size:17px;margin:22px 0 7px;padding-left:10px}
+  .takeaway{font-size:14.5px;margin:0 0 12px;padding:10px 14px;background:var(--slate2);
+    border-radius:8px;border:1px solid #d7dee1}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(285px,100%),1fr));gap:13px}
+  .card{background:var(--slate2);border-radius:11px;padding:13px 14px 12px;position:relative;
+    border:1px solid #dde4e6;overflow:hidden}
+  .card .bar{position:absolute;top:0;left:0;width:5px;height:100%}
+  .card h3{font-size:14px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .pill{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;
+    letter-spacing:.4px;color:#0c1a1f;white-space:nowrap}
+  .whatis{font-size:12px;color:var(--mute);margin-top:4px;font-style:italic;line-height:1.4}
+  .valrow{display:flex;align-items:baseline;gap:7px;margin:9px 0 0}
+  .valnum{font-size:25px;font-family:Georgia,serif;font-weight:700}
+  .valrow .unit{font-size:12.5px;color:var(--mute)}
+  .yrago{font-size:12px;margin-top:7px;padding:5px 9px;border-radius:6px;display:flex;
+    justify-content:space-between;gap:8px;align-items:baseline;background:#f4f6f7;color:var(--mute)}
+  .yrago .yv{font-weight:700;color:var(--cream)}
+  .yrago.worse{background:rgba(200,69,59,.09)}
+  .yrago.worse .yv{color:var(--red)}
+  .yrago .ynote{font-style:italic;text-align:right}
+  .mdesc{font-size:13.5px;margin-top:7px}
+  .scale{font-size:11px;color:var(--mute);margin-top:8px;display:flex;flex-wrap:wrap;gap:9px}
+  .dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:4px;vertical-align:middle}
+  .trend{display:flex;align-items:center;gap:8px;margin-top:6px}
+  .tbadge{display:inline-flex;font-size:10.5px;font-weight:700;padding:1px 7px;border-radius:20px;white-space:nowrap}
+  .tbadge.better{background:rgba(90,158,111,.18);color:#3f8a5c}
+  .tbadge.worse{background:rgba(200,69,59,.16);color:#c0433a}
+  .tbadge.flat{background:rgba(159,179,184,.14);color:var(--mute)}
+  .tbadge.ctx{background:rgba(83,194,192,.14);color:var(--teal-lt)}
+
+  .ladder{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));gap:13px}
+  .lvlcard{background:var(--slate2);border-radius:11px;padding:12px 14px;border:1px solid #dde4e6;
+    opacity:.55;position:relative;overflow:hidden}
+  .lvlcard.active{opacity:1;box-shadow:0 0 0 2px rgba(14,140,139,.38)}
+  .lvlcard .lbar{position:absolute;top:0;left:0;width:5px;height:100%}
+  .lvlcard h4{font-size:14px;display:flex;align-items:center;gap:7px}
+  .lvlcard h4 .tag{font-family:Georgia,serif;font-size:15px;font-weight:700}
+  .lvlcard ul{list-style:none;margin:7px 0 0;padding:0}
+  .lvlcard li{font-size:12.5px;padding:2px 0 2px 14px;position:relative;line-height:1.4}
+  .lvlcard li:before{content:'▸';position:absolute;left:0;color:var(--teal-lt)}
+  .nowtag{display:inline-block;font-size:9px;font-weight:800;background:#0e8c8b;color:#fff;
+    border-radius:4px;padding:1px 5px;vertical-align:middle}
+  .disc{font-size:11.5px;color:#6b7d83;margin-top:18px;font-style:italic;
+    border-top:1px solid #d7dee1;padding-top:12px}
+
+  /* Phones and small tablets. The page must also work with JavaScript off —
+     iOS Quick Look (the Files/Mail preview) never runs scripts — so all card
+     markup below is written into the file, not generated in the browser. */
+  @media (max-width:760px){
+    body{padding:16px 14px 40px}
+    h1{font-size:22px}
+    .sub{font-size:12.5px}
+    .banner{padding:14px 15px;gap:12px}
+    .banner .verdict{font-size:19px}
+    .banner .desc{font-size:13.5px}
+    .banner>div:first-child{flex:1 1 100%}
+    #meter{flex:1 1 100%}
+    .seg{min-width:0;width:100%;flex-direction:row;gap:9px;padding:9px 14px}
+    .seg small{font-size:9.5px}
+    .actionbar{padding:12px 14px}
+    .actionbar .ab-txt{min-width:0;font-size:14.5px}
+    details.key .cols{grid-template-columns:1fr;gap:12px}
+    h2.sec{font-size:16px;margin:20px 0 7px}
+    .takeaway{font-size:14px;padding:10px 12px}
+    .valnum{font-size:23px}
+    .yrago{flex-wrap:wrap}
+    .yrago .ynote{text-align:left}
+  }
+  @media (max-width:420px){
+    body{padding:14px 11px 36px}
+    .card h3{flex-wrap:wrap;gap:5px}
+  }
+</style>
+</head>
+<body>
+  <div class="top">
+    <h1>North India Risk Dashboard</h1>
+    <div class="sub">Plain English · Lucknow · 1 November 2026</div>
+  </div>
+
+  <div class="banner">
+    <div>
+      <div class="label">Where we are</div>
+      <div class="verdict" id="verdict"><!--auto:start-->
+<span style="color:var(--red)">C — Critical: essentials under strain</span>
+<!--auto:end--></div>
+      <div class="desc" id="verdictDesc"><!--auto:start-->
+Water, food and health take priority. Hold cash. Do not commit to anything large.
+<!--auto:end--></div>
+    </div>
+    <div id="meter"><!--auto:start-->
+<div class="label" style="text-align:right;margin-bottom:5px">Strain</div>
+     <div class="seg" style="background:var(--red)"><span style="font-size:27px">54</span><small>OUT OF 100</small><span class="tm">▼ 3 better</span></div>
+<!--auto:end--></div>
+  </div>
+
+  <div class="actionbar" id="actionbar" style="background:linear-gradient(135deg, var(--red)22, var(--slate2));border-color:var(--red)"><!--auto:start-->
+<div class="lvl" style="background:var(--red)"><b>L4</b><small>Sit tight</small></div>
+    <div class="ab-txt"><div class="k">Do this now</div>Too late to build — run what you own and keep money within reach.</div>
+<!--auto:end--></div>
+
+  <details class="key">
+    <summary>What the colours and levels mean</summary>
+    <div class="cols">
+      <div>
+        <div class="okey-h">Four possible futures</div>
+        <div class="okey-row"><i class="dot" style="background:var(--green)"></i><span><b>D — Improving.</b> Oil falls, rains return, prices settle.</span></div>
+        <div class="okey-row"><i class="dot" style="background:var(--green)"></i><span><b>A — Manageable.</b> Costs creep up slowly. Nothing alarming.</span></div>
+        <div class="okey-row"><i class="dot" style="background:var(--gold)"></i><span><b>B — Serious.</b> Fuel and food rise faster than income, and stay there.</span></div>
+        <div class="okey-row"><i class="dot" style="background:var(--red)"></i><span><b>C — Critical.</b> Water, power and food all come under strain together.</span></div>
+      </div>
+      <div>
+        <div class="okey-h">Four things you might be asked to do</div>
+        <div class="okey-row"><i class="dot" style="background:var(--green)"></i><span><b>L1 Keep an eye out.</b> Do the cheap, slow jobs now.</span></div>
+        <div class="okey-row"><i class="dot" style="background:var(--gold)"></i><span><b>L2 Get ready.</b> Install the big things before everyone else does.</span></div>
+        <div class="okey-row"><i class="dot" style="background:#e8a23b"></i><span><b>L3 Act now.</b> Finish what you started. Start nothing new.</span></div>
+        <div class="okey-row"><i class="dot" style="background:var(--red)"></i><span><b>L4 Sit tight.</b> Use what you own. Keep cash handy.</span></div>
+      </div>
+    </div>
+  </details>
+
+  <h2 class="sec" style="border-left:4px solid var(--red)">💧 Will there be enough water?</h2>
+  <div class="takeaway"><b style="color:var(--red)">The monsoon ended at <b>87%</b> of normal nationally, the fourth-weakest since 2001, though Uttar Pradesh finished 8% above normal. Pacific warming measured <b>+2.5°C</b> in the latest weekly reading, below the record +3.3°C earlier in October but still severe. No new reservoir figure was found; in late September they held 70% nationally against 79% a year ago.<br><br>Your taps should hold through winter; <b>next summer</b> is the risk. You still have no storage tank. Close that gap before March.</b></div>
+  <div class="grid" id="grid-water"><!--auto:start-->
+<div class="card"><div class="bar" style="background:var(--red)"></div>
+        <h3><span>This year’s rain</span><span class="pill" style="background:var(--red)">Gone wrong</span></h3>
+        <div class="whatis">Rainfall against a fifty-year average. Below 90 is where crops fail and wells stop refilling.</div>
+        <div class="valrow"><span class="valnum">87</span><span class="unit">% of a normal year</span></div>
+        <div class="yrago worse"><span>2025 season: <span class="yv">108%</span></span><span class="ynote">last year was above normal</span></div>
+        <div class="mdesc">Final national figure: <b>13% short</b>, the fourth-weakest season since 2001. North-west India finished 6% short. <b>Uttar Pradesh itself ended 8% above normal</b>, so the shortage reaches you as food prices, not dry taps.</div>
+        <div class="scale">
+          <span><i class="dot" style="background:var(--green)"></i>Fine over 95%</span>
+          <span><i class="dot" style="background:var(--gold)"></i>Worrying 90–95%</span>
+          <span><i class="dot" style="background:var(--red)"></i>Serious under 90%</span>
+        </div></div>
+<div class="card"><div class="bar" style="background:var(--red)"></div>
+        <h3><span>Pacific warming (El Niño)</span><span class="pill" style="background:var(--red)">Gone wrong</span></h3>
+        <div class="whatis">Sounds remote, but it’s our best early warning — when this ocean warms, our monsoon weakens a year later.</div>
+        <div class="valrow"><span class="valnum">2.5</span><span class="unit">°C above normal</span></div>
+        <div class="yrago worse"><span>Sept 2025: <span class="yv">about zero</span></span><span class="ynote">the ocean was cooling, not warming</span></div>
+        <div class="mdesc"><b>+2.5°C</b> in the latest weekly reading (NOAA, 26 October), below the record +3.3°C earlier in October but still severe. Forecasts put the peak between November and January. It sets up next year: a weaker winter crop, an early hard summer, heavy strain on the grid.</div>
+        <div class="scale">
+          <span><i class="dot" style="background:var(--green)"></i>Normal under +0.5°C</span>
+          <span><i class="dot" style="background:var(--gold)"></i>Concerning +0.5–2°C</span>
+          <span><i class="dot" style="background:var(--red)"></i>Severe over +2°C</span>
+        </div></div>
+<div class="card"><div class="bar" style="background:var(--gold)"></div>
+        <h3><span>Groundwater and the river</span><span class="pill" style="background:var(--gold)">Watch it</span></h3>
+        <div class="whatis">What your taps and borewells actually draw from.</div>
+        <div class="valrow"><span class="valnum">78</span><span class="unit">% of normal</span></div>
+        <div class="yrago worse"><span>this time in 2025: <span class="yv">90%</span></span><span class="ynote">regional reservoirs were near full</span></div>
+        <div class="mdesc"><b>No new water-table or reservoir reading since mid-October.</b> Reservoirs in north India held 62% against 92% a year ago in late September; nationally 70% against 79%. Nothing refills them until June.</div>
+        <div class="scale">
+          <span><i class="dot" style="background:var(--green)"></i>Fine over 90%</span>
+          <span><i class="dot" style="background:var(--gold)"></i>Worrying 75–90%</span>
+          <span><i class="dot" style="background:var(--red)"></i>Serious under 75%</span>
+        </div></div>
+<div class="card"><div class="bar" style="background:var(--teal-lt)"></div>
+        <h3><span>Indian Ocean see-saw</span><span class="pill" style="background:var(--teal-lt)">Background</span></h3>
+        <div class="valrow"><span class="valnum">0.25</span><span class="unit">°C</span></div>
+        <div class="mdesc">This ocean can tip in a way that rescues a weak monsoon — it saved India in 1997. <b>No new reading. It never tipped, and with the monsoon over it can no longer help.</b></div></div>
+<!--auto:end--></div>
+
+  <h2 class="sec" style="border-left:4px solid var(--gold)">🌾 Will food get more expensive?</h2>
+  <div class="takeaway"><b style="color:var(--gold)">Food costs <b>7.74%</b> more than a year ago (September; the next reading is due 12 November), with onions more than doubled. That is just under the painful mark of 8%. The short monsoon in the south and east reaches the shops in <b>November, December and January</b>. Fertiliser stocks are 38% above last year, so the <b>March and April</b> harvest looks protected. Buy winter staples this month.</b></div>
+  <div class="grid" id="grid-food"><!--auto:start-->
+<div class="card"><div class="bar" style="background:var(--gold)"></div>
+        <h3><span>Food prices</span><span class="pill" style="background:var(--gold)">Watch it</span></h3>
+        <div class="whatis">The same measure, food only — the part of the bill you notice first.</div>
+        <div class="valrow"><span class="valnum">7.74</span><span class="unit">% higher than a year ago</span></div>
+        <div class="yrago worse"><span>Sept 2025: <span class="yv">−2.28%</span></span><span class="ynote">prices were falling</span></div>
+        <div class="mdesc">Released 12 October: up from 5.97% in August, with onions more than doubled. Just under the painful mark, and <b>already past it in villages, at 8.06%</b>. No new reading until 12 November.</div>
+        <div class="scale">
+          <span><i class="dot" style="background:var(--green)"></i>Fine under 6%</span>
+          <span><i class="dot" style="background:var(--gold)"></i>Uncomfortable 6–8%</span>
+          <span><i class="dot" style="background:var(--red)"></i>Painful over 8%</span>
+        </div></div>
+<div class="card"><div class="bar" style="background:var(--gold)"></div>
+        <h3><span>Cooking oil</span><span class="pill" style="background:var(--gold)">Watch it</span></h3>
+        <div class="whatis">Mostly imported, so it follows the rupee rather than Indian farms.</div>
+        <div class="valrow"><span class="valnum">186</span><span class="unit">₹ a litre</span></div>
+        
+        <div class="mdesc"><b>No reliable new shop reading.</b> Wholesale mustard oil traded near ₹184 a kilo in late September, and the weaker rupee pushes imported oil up. Expect the shelf price to follow.</div>
+        <div class="scale">
+          <span><i class="dot" style="background:var(--green)"></i>Fine under ₹160</span>
+          <span><i class="dot" style="background:var(--gold)"></i>Uncomfortable ₹160–190</span>
+          <span><i class="dot" style="background:var(--red)"></i>Painful over ₹190</span>
+        </div></div>
+<div class="card"><div class="bar" style="background:var(--gold)"></div>
+        <h3><span>Fertiliser shipping</span><span class="pill" style="background:var(--gold)">Route shut — stocks ample</span></h3>
+        <div class="mdesc">A third of the world’s fertiliser ships through one stretch of sea near Iran. <b>It is still closed.</b> Two tankers hit mines there on 18 October, talks have stalled, and a deal is not expected before the US elections on 3 November.<br><br>Imported DAP is costing about $910–930 a tonne, far above what the capped bag price covers, so the government pays importers extra. India started winter sowing with fertiliser stocks <b>38% above last year</b> (mid-October), so the <b>March and April</b> harvest looks less exposed.</div></div>
+<!--auto:end--></div>
+
+  <h2 class="sec" style="border-left:4px solid var(--red)">⚡ Will the power stay on?</h2>
+  <div class="takeaway"><b style="color:var(--red)">Imported oil is near <b>$118</b> a barrel (Brent, the world price), about 80% above last September and just under the painful mark of $120. Houthi attacks on Saudi oil sites drove the rise. Nationally, coal stocks held above 18 million tonnes in mid-October.<br><br>No newer UPPCL statement was found. At the last one, in mid-September, Lucknow was <b>protected</b> as a district headquarters while rural areas took night cuts. That is a priority, not a guarantee. Keep the inverter charged.</b></div>
+  <div class="grid" id="grid-energy"><!--auto:start-->
+<div class="card"><div class="bar" style="background:var(--gold)"></div>
+        <h3><span>Imported oil</span><span class="pill" style="background:var(--gold)">Watch it</span></h3>
+        <div class="whatis">What India pays for a barrel of crude. Sets petrol and diesel — then, a month later, anything that travels by truck.</div>
+        <div class="valrow"><span class="valnum">118.1</span><span class="unit">US$ a barrel</span></div>
+        <div class="yrago worse"><span>Sept 2025: <span class="yv">about $66</span></span><span class="ynote">nearly double</span></div>
+        <div class="mdesc">Brent, the world price, stands in for India’s own basket. Up from about $104 two weeks ago, after Houthi attacks on Saudi oil sites and with the shipping route near Iran still closed. It sits just under the painful mark of $120.</div>
+        <div class="scale">
+          <span><i class="dot" style="background:var(--green)"></i>Fine under $90</span>
+          <span><i class="dot" style="background:var(--gold)"></i>Uncomfortable $90–120</span>
+          <span><i class="dot" style="background:var(--red)"></i>Painful over $120</span>
+        </div></div>
+<div class="card"><div class="bar" style="background:var(--red)"></div>
+        <h3><span>Electricity</span><span class="pill" style="background:var(--red)">UP short 1,500–3,000 MW</span></h3>
+        <div class="mdesc"><b>In Uttar Pradesh:</b> <b style="color:var(--red)">1,500–3,000 MW</b> short in mid-September, from coal delays and plant outages. <b>No newer UPPCL figure found.</b><br><br><b>Nationally</b> (not UP alone): coal stocks at power plants held above 18 million tonnes in mid-October as deliveries picked up. No new days-of-cover figure.<br><br><b style="color:var(--red)">For Lucknow:</b> at the last statement it was <b>protected</b> as a district headquarters, with night cuts in rural and tehsil areas instead. Keep the inverter charged.</div></div>
+<!--auto:end--></div>
+
+  <h2 class="sec" style="border-left:4px solid var(--gold)">💰 What about money?</h2>
+  <div class="takeaway"><b style="color:var(--red)">The cost of living is <b>5.54%</b> higher than a year ago, against <b>1.54%</b> last September; the next reading is due 12 November. What shops pay suppliers is rising at <b>11.39%</b>, and that gap closes by shop prices rising. The rupee improved to <b>₹94.95</b> to the dollar, but only with heavy spending of savings. The Reserve Bank raised its rate to <b>5.50%</b> on 7 October. Hold a larger cash reserve and postpone commitments you cannot easily undo.</b></div>
+  <div class="grid" id="grid-money"><!--auto:start-->
+<div class="card"><div class="bar" style="background:var(--green)"></div>
+        <h3><span>Cost of one US dollar</span><span class="pill" style="background:var(--green)">Fine</span></h3>
+        <div class="whatis">Imports are paid for in dollars. When this climbs, everything imported quietly costs more.</div>
+        <div class="valrow"><span class="valnum">94.95</span><span class="unit">rupees</span></div>
+        <div class="yrago worse"><span>2025 average: <span class="yv">₹87.16</span></span><span class="ynote">₹9 weaker</span></div>
+        <div class="mdesc">₹94.95 on 30 October, its best month since February. <b>It is still being held up deliberately</b>: savings fell for a seventh week, to $719.75 billion on 23 October.</div>
+        <div class="scale">
+          <span><i class="dot" style="background:var(--green)"></i>Fine under ₹96</span>
+          <span><i class="dot" style="background:var(--gold)"></i>Uncomfortable ₹96–100</span>
+          <span><i class="dot" style="background:var(--red)"></i>Painful over ₹100</span>
+        </div></div>
+<div class="card"><div class="bar" style="background:var(--gold)"></div>
+        <h3><span>Cost of living</span><span class="pill" style="background:var(--gold)">Watch it</span></h3>
+        <div class="whatis">How much more expensive ordinary life is than twelve months ago.</div>
+        <div class="valrow"><span class="valnum">5.54</span><span class="unit">% higher than a year ago</span></div>
+        <div class="yrago worse"><span>Sept 2025: <span class="yv">1.54%</span></span><span class="ynote">over three times higher</span></div>
+        <div class="mdesc">Released 12 October: up from 4.82% in August, with onions more than doubled. <b>Already past comfortable in villages, at 6.08%</b>. Measured mostly before the latest oil moves. No new reading until 12 November.</div>
+        <div class="scale">
+          <span><i class="dot" style="background:var(--green)"></i>Fine under 5%</span>
+          <span><i class="dot" style="background:var(--gold)"></i>Uncomfortable 5–6.5%</span>
+          <span><i class="dot" style="background:var(--red)"></i>Painful over 6.5%</span>
+        </div></div>
+<div class="card"><div class="bar" style="background:var(--teal-lt)"></div>
+        <h3><span>Gold</span><span class="pill" style="background:var(--teal-lt)">Background</span></h3>
+        <div class="valrow"><span class="valnum">1,53,170</span><span class="unit">₹ per 10g</span></div>
+        <div class="mdesc">People buy gold when they’re nervous, so it doubles as a mood reading. <b>No reliable new reading.</b> Reports differ by about ₹7,000 (₹1,42,800 on 26 October in one, ₹1,49,570 on 8 October in another), so the earlier figure is carried over.</div></div>
+<!--auto:end--></div>
+
+  <h2 class="sec" style="border-left:4px solid var(--teal-lt)">🔍 Indicators of what is to come</h2>
+  <div class="takeaway"><b style="color:var(--red)">These turn before shop prices do. Two of the five main readings are severe: Pacific warming at <b>+2.5°C</b> and a monsoon <b>13%</b> short. Oil, at <b>$118</b>, is just under severe. What shops pay suppliers has jumped to <b>11.39%</b>.<br><br>The buffers keep thinning. Savings fell for a seventh week to <b>$719.75 billion</b>, while promised future dollar sales reached a record <b>$239.2 billion</b> at the end of September.</b></div>
+  <div class="grid" id="grid-ctx"><!--auto:start-->
+<div class="card"><div class="bar" style="background:var(--red)"></div>
+        <h3><span>What shops pay suppliers</span><span class="pill" style="background:var(--red)">Twice your rate</span></h3>
+        <div class="mdesc">Moves two to three months before you feel it, so this reaches the shops in <b>December and January</b>. No new figure until mid-November. <b>September’s figure, out 14 October, is 11.39%</b> against <b>5.54%</b> in the shops, with fuel and power up <b>25.9%</b>. A year ago it was 0.13%. <b>That gap closes by shop prices climbing, not the other way round.</b></div></div>
+<div class="card"><div class="bar" style="background:var(--red)"></div>
+        <h3><span>Foreign-currency savings</span><span class="pill" style="background:var(--red)">Falling seven weeks</span></h3>
+        <div class="mdesc">India’s rainy-day fund, spent to stop the rupee falling. It fell for a seventh week to <b>$719.75 billion</b> on 23 October, about $66 billion below the 4 September record.<br><br>Against it, the Reserve Bank has promised away a record <b>$239.2 billion</b> in future dollar sales, leaving roughly <b>$480 billion</b> genuinely free. <b>That promise figure is from 30 September, three weeks older than the savings figure</b>, so treat the free amount as approximate.</div></div>
+<div class="card"><div class="bar" style="background:var(--red)"></div>
+        <h3><span>Room to cushion prices</span><span class="pill" style="background:var(--red)">Already spent</span></h3>
+        <div class="mdesc">Governments soften price shocks by cutting taxes. <b>Diesel tax is already at zero</b>, so there’s nothing left to cut for this one. Either pump prices rise or government borrowing does — both reach you.</div></div>
+<div class="card"><div class="bar" style="background:var(--gold)"></div>
+        <h3><span>Interest rates</span><span class="pill" style="background:var(--gold)">Raised on 7 Oct</span></h3>
+        <div class="mdesc">The rate that sets your loan payments. On <b>7 October</b> the Reserve Bank raised it to <b>5.50%</b>, the first rise since February 2023, and said it will tighten carefully. It now expects the cost of living to average <b>5.2%</b> through March 2027. A cut looks unlikely. If you have a loan, plan on it costing more.</div></div>
+<!--auto:end--></div>
+
+  <h2 class="sec" style="border-left:4px solid var(--green)">🌫 Is the air safe?</h2>
+  <div class="takeaway"><b style="color:var(--green)">Readings eased to about <b>60</b> in the first days of November, in the fine range, against 168 on a private tracker on 15 October; trackers disagree. Smog usually climbs after Diwali on 8 November and through the winter cold. <b>Run an air purifier in the elders’ room now</b>, and keep the elderly indoors on days above 300.</b></div>
+  <div class="grid" id="grid-air"><!--auto:start-->
+<div class="card"><div class="bar" style="background:var(--green)"></div>
+        <h3><span>Air quality</span><span class="pill" style="background:var(--green)">Fine</span></h3>
+        <div class="whatis">How harmful the air is to breathe. Over 300, the elderly shouldn’t go outside.</div>
+        <div class="valrow"><span class="valnum">60</span><span class="unit">AQI</span></div>
+        
+        <div class="mdesc">Two public trackers showed about 60 on 1 and 2 November, in the fine range, against 168 on a private tracker on 15 October. Trackers disagree. <b>Diwali on 8 November and the winter cold usually push it up.</b></div>
+        <div class="scale">
+          <span><i class="dot" style="background:var(--green)"></i>Tolerable under 100</span>
+          <span><i class="dot" style="background:var(--gold)"></i>Harmful 100–300</span>
+          <span><i class="dot" style="background:var(--red)"></i>Dangerous over 300</span>
+        </div></div>
+<!--auto:end--></div>
+
+  <h2 class="sec" style="border-left:4px solid var(--teal)">✅ What to do</h2>
+  <div style="font-size:12.5px;color:var(--mute);margin:-2px 0 11px">Big installations have to happen <b>early</b> or not at all — by the time you obviously need solar, so does everyone else. Highlighted card is where we are.</div>
+  <div class="ladder" id="ladder"><!--auto:start-->
+<div class="lvlcard"><div class="lbar" style="background:var(--green)"></div>
+      <h4><span class="tag" style="color:var(--green)">L1</span> Keep an eye out</h4>
+      <ul><li><b style="color:var(--teal)">Install:</b> rainwater harvesting and a storage tank.</li><li><b style="color:var(--teal)">Install:</b> air purifier for the elders’ room.</li><li><b style="color:var(--teal)">Start:</b> book the free solar survey — the process is slow.</li><li>Keep the store cupboard, medicines and inverter topped up.</li></ul></div>
+<div class="lvlcard"><div class="lbar" style="background:var(--gold)"></div>
+      <h4><span class="tag" style="color:var(--gold)">L2</span> Get ready</h4>
+      <ul><li><b style="color:var(--teal)">Install:</b> solar panels and a battery.</li><li><b style="color:var(--teal)">Install:</b> efficient AC for the elders’ room.</li><li>Stock up: one to two months of oil and staples.</li><li>Top up medicines. Check this page weekly.</li></ul></div>
+<div class="lvlcard"><div class="lbar" style="background:#e8a23b"></div>
+      <h4><span class="tag" style="color:#e8a23b">L3</span> Act now</h4>
+      <ul><li><b style="color:var(--teal)">Finish fast:</b> complete any half-done install and fix the price.</li><li>Fill the store cupboard to two or three months.</li><li>Keep about a year of expenses in reachable cash. (General info, not advice.)</li><li>Check the elderly essentials: medicines, cooling, water.</li></ul></div>
+<div class="lvlcard active"><div class="lbar" style="background:var(--red)"></div>
+      <h4><span class="tag" style="color:var(--red)">L4</span> Sit tight <span class="nowtag">We are here</span></h4>
+      <ul><li><b style="color:var(--teal)">Start no new installations</b> — use what you have.</li><li>Water first: fill every container, sort purification and cooling.</li><li>Extra staples now, ahead of the price rises.</li><li>Postpone anything large you don’t strictly need.</li></ul></div>
+<!--auto:end--></div>
+
+  <div class="disc">Figures as of 1 November 2026. Thresholds set in advance so they can’t be argued with later. A personal planning aid — not financial advice, not an official forecast.</div>
+
+<script>
+// 'up' = higher is worse. 'down' = lower is worse.
+const METRICS = [
+  {id:'oil', name:'Imported oil', unit:'US$ a barrel', base:118.1, dir:'up',
+    hist:[{d:'Jun',v:112},{d:'Jul',v:81.4},{d:'6 Aug',v:85.2},{d:'15 Aug',v:86.5},{d:'2 Sep',v:92.5},{d:'15 Sep',v:128.7},{d:'1 Oct',v:116.5},{d:'15 Oct',v:104.1}],
+    prev:'about $66', prevWhen:'Sept 2025', prevDir:'worse', prevNote:'nearly double',
+    whatis:'What India pays for a barrel of crude. Sets petrol and diesel — then, a month later, anything that travels by truck.',
+    desc:'Brent, the world price, stands in for India’s own basket. Up from about $104 two weeks ago, after Houthi attacks on Saudi oil sites and with the shipping route near Iran still closed. It sits just under the painful mark of $120.',
+    calm:'Fine under $90', watch:'Uncomfortable $90–120', alert:'Painful over $120',
+    t:{calmMax:90, alertMin:120}},
+
+  {id:'inr', name:'Cost of one US dollar', unit:'rupees', base:94.95, dir:'up',
+    hist:[{d:'Jun',v:94.4},{d:'14 Jul',v:96.29},{d:'6 Aug',v:94.9},{d:'15 Aug',v:95.67},{d:'2 Sep',v:94.98},{d:'15 Sep',v:95.83},{d:'16 Sep',v:95.92},{d:'1 Oct',v:96.11},{d:'15 Oct',v:95.05}],
+    prev:'₹87.16', prevWhen:'2025 average', prevDir:'worse', prevNote:'₹9 weaker',
+    whatis:'Imports are paid for in dollars. When this climbs, everything imported quietly costs more.',
+    desc:'₹94.95 on 30 October, its best month since February. <b>It is still being held up deliberately</b>: savings fell for a seventh week, to $719.75 billion on 23 October.',
+    calm:'Fine under ₹96', watch:'Uncomfortable ₹96–100', alert:'Painful over ₹100',
+    t:{calmMax:96, alertMin:100}},
+
+  {id:'cpi', name:'Cost of living', unit:'% higher than a year ago', base:5.54, dir:'up',
+    hist:[{d:'Mar',v:3.4},{d:'May',v:3.93},{d:'6 Aug',v:4.38},{d:'15 Aug',v:4.45},{d:'2 Sep',v:4.45},{d:'15 Sep',v:4.82},{d:'1 Oct',v:4.82},{d:'15 Oct',v:5.54}],
+    prev:'1.54%', prevWhen:'Sept 2025', prevDir:'worse', prevNote:'over three times higher',
+    whatis:'How much more expensive ordinary life is than twelve months ago.',
+    desc:'Released 12 October: up from 4.82% in August, with onions more than doubled. <b>Already past comfortable in villages, at 6.08%</b>. Measured mostly before the latest oil moves. No new reading until 12 November.',
+    calm:'Fine under 5%', watch:'Uncomfortable 5–6.5%', alert:'Painful over 6.5%',
+    t:{calmMax:5, alertMin:6.5}},
+
+  {id:'food', name:'Food prices', unit:'% higher than a year ago', base:7.74, dir:'up',
+    hist:[{d:'Apr',v:4.20},{d:'May',v:4.78},{d:'6 Aug',v:5.32},{d:'15 Aug',v:5.52},{d:'2 Sep',v:5.52},{d:'15 Sep',v:5.95},{d:'1 Oct',v:5.95},{d:'15 Oct',v:7.74}],
+    prev:'−2.28%', prevWhen:'Sept 2025', prevDir:'worse', prevNote:'prices were falling',
+    whatis:'The same measure, food only — the part of the bill you notice first.',
+    desc:'Released 12 October: up from 5.97% in August, with onions more than doubled. Just under the painful mark, and <b>already past it in villages, at 8.06%</b>. No new reading until 12 November.',
+    calm:'Fine under 6%', watch:'Uncomfortable 6–8%', alert:'Painful over 8%',
+    t:{calmMax:6, alertMin:8}},
+
+  {id:'oil_edible', name:'Cooking oil', unit:'₹ a litre', base:186, dir:'up',
+    hist:[{d:'18 Jun',v:178},{d:'1 Jul',v:170},{d:'6 Aug',v:183},{d:'15 Aug',v:183},{d:'2 Sep',v:183},{d:'15 Sep',v:186},{d:'1 Oct',v:186},{d:'15 Oct',v:186}],
+    whatis:'Mostly imported, so it follows the rupee rather than Indian farms.',
+    desc:'<b>No reliable new shop reading.</b> Wholesale mustard oil traded near ₹184 a kilo in late September, and the weaker rupee pushes imported oil up. Expect the shelf price to follow.',
+    calm:'Fine under ₹160', watch:'Uncomfortable ₹160–190', alert:'Painful over ₹190',
+    t:{calmMax:160, alertMin:190}},
+
+  {id:'monsoon', name:'This year’s rain', unit:'% of a normal year', base:87, dir:'down',
+    hist:[{d:'forecast',v:90},{d:'mid-Jun',v:74},{d:'1 Jul',v:60},{d:'15 Jul',v:81},{d:'15 Aug',v:77},{d:'2 Sep',v:89},{d:'15 Sep',v:90},{d:'16 Sep',v:85},{d:'1 Oct',v:87},{d:'15 Oct',v:87}],
+    prev:'108%', prevWhen:'2025 season', prevDir:'worse', prevNote:'last year was above normal',
+    whatis:'Rainfall against a fifty-year average. Below 90 is where crops fail and wells stop refilling.',
+    desc:'Final national figure: <b>13% short</b>, the fourth-weakest season since 2001. North-west India finished 6% short. <b>Uttar Pradesh itself ended 8% above normal</b>, so the shortage reaches you as food prices, not dry taps.',
+    calm:'Fine over 95%', watch:'Worrying 90–95%', alert:'Serious under 90%',
+    t:{calmMin:95, alertMax:90}},
+
+  {id:'aqi', name:'Air quality', unit:'AQI', base:60, dir:'up',
+    hist:[{d:'18 Jun',v:105},{d:'1 Jul',v:80},{d:'14 Jul',v:109},{d:'6 Aug',v:105},{d:'15 Aug',v:118},{d:'2 Sep',v:98},{d:'15 Sep',v:98},{d:'1 Oct',v:56},{d:'15 Oct',v:168}],
+    whatis:'How harmful the air is to breathe. Over 300, the elderly shouldn’t go outside.',
+    desc:'Two public trackers showed about 60 on 1 and 2 November, in the fine range, against 168 on a private tracker on 15 October. Trackers disagree. <b>Diwali on 8 November and the winter cold usually push it up.</b>',
+    calm:'Tolerable under 100', watch:'Harmful 100–300', alert:'Dangerous over 300',
+    t:{calmMax:100, alertMin:300}},
+
+  {id:'reservoir', name:'Groundwater and the river', unit:'% of normal', base:78, dir:'down',
+    hist:[{d:'18 Jun',v:80},{d:'15 Jul',v:80},{d:'6 Aug',v:76},{d:'15 Aug',v:78},{d:'2 Sep',v:80},{d:'15 Sep',v:78},{d:'1 Oct',v:78},{d:'15 Oct',v:78}],
+    prev:'90%', prevWhen:'this time in 2025', prevDir:'worse', prevNote:'regional reservoirs were near full',
+    whatis:'What your taps and borewells actually draw from.',
+    desc:'<b>No new water-table or reservoir reading since mid-October.</b> Reservoirs in north India held 62% against 92% a year ago in late September; nationally 70% against 79%. Nothing refills them until June.',
+    calm:'Fine over 90%', watch:'Worrying 75–90%', alert:'Serious under 75%',
+    t:{calmMin:90, alertMax:75}},
+
+  {id:'enso', name:'Pacific warming (El Niño)', unit:'°C above normal', base:2.5, dir:'up',
+    hist:[{d:'Apr',v:0.48},{d:'May',v:0.94},{d:'Jun',v:1.7},{d:'15 Jul',v:1.8},{d:'15 Aug',v:2.6},{d:'2 Sep',v:1.8},{d:'15 Sep',v:2.9},{d:'1 Oct',v:3.1},{d:'15 Oct',v:3.3}],
+    prev:'about zero', prevWhen:'Sept 2025', prevDir:'worse', prevNote:'the ocean was cooling, not warming',
+    whatis:'Sounds remote, but it’s our best early warning — when this ocean warms, our monsoon weakens a year later.',
+    desc:'<b>+2.5°C</b> in the latest weekly reading (NOAA, 26 October), below the record +3.3°C earlier in October but still severe. Forecasts put the peak between November and January. It sets up next year: a weaker winter crop, an early hard summer, heavy strain on the grid.',
+    calm:'Normal under +0.5°C', watch:'Concerning +0.5–2°C', alert:'Severe over +2°C',
+    t:{calmMax:0.5, alertMin:2.0}},
+
+  {id:'gold', name:'Gold', unit:'₹ per 10g', base:153170, info:true,
+    hist:[{d:'18 Jun',v:151100},{d:'1 Jul',v:140800},{d:'15 Jul',v:142800},{d:'15 Aug',v:153300},{d:'2 Sep',v:152790},{d:'15 Sep',v:153170},{d:'1 Oct',v:153170},{d:'15 Oct',v:153170}],
+    note:'People buy gold when they’re nervous, so it doubles as a mood reading. <b>No reliable new reading.</b> Reports differ by about ₹7,000 (₹1,42,800 on 26 October in one, ₹1,49,570 on 8 October in another), so the earlier figure is carried over.'},
+
+  {id:'iod', name:'Indian Ocean see-saw', unit:'°C', base:0.25, info:true,
+    hist:[{d:'14 Jun',v:-0.1},{d:'1 Jul',v:-0.02},{d:'15 Jul',v:-0.06},{d:'6 Aug',v:0.44},{d:'15 Aug',v:0.63},{d:'2 Sep',v:0.22},{d:'15 Sep',v:0.25},{d:'1 Oct',v:0.25},{d:'15 Oct',v:0.25}],
+    note:'This ocean can tip in a way that rescues a weak monsoon — it saved India in 1997. <b>No new reading. It never tipped, and with the monsoon over it can no longer help.</b>'},
+
+  {id:'power', textCard:true, name:'Electricity', pill:'UP short 1,500–3,000 MW', pillColor:'var(--red)',
+    note:'<b>In Uttar Pradesh:</b> <b style="color:var(--red)">1,500–3,000 MW</b> short in mid-September, from coal delays and plant outages. <b>No newer UPPCL figure found.</b><br><br><b>Nationally</b> (not UP alone): coal stocks at power plants held above 18 million tonnes in mid-October as deliveries picked up. No new days-of-cover figure.<br><br><b style="color:var(--red)">For Lucknow:</b> at the last statement it was <b>protected</b> as a district headquarters, with night cuts in rural and tehsil areas instead. Keep the inverter charged.'},
+
+  {id:'fert', textCard:true, name:'Fertiliser shipping', pill:'Route shut — stocks ample', pillColor:'var(--gold)',
+    note:'A third of the world’s fertiliser ships through one stretch of sea near Iran. <b>It is still closed.</b> Two tankers hit mines there on 18 October, talks have stalled, and a deal is not expected before the US elections on 3 November.<br><br>Imported DAP is costing about $910–930 a tonne, far above what the capped bag price covers, so the government pays importers extra. India started winter sowing with fertiliser stocks <b>38% above last year</b> (mid-October), so the <b>March and April</b> harvest looks less exposed.'},
+
+  {id:'repo', textCard:true, name:'Interest rates', pill:'Raised on 7 Oct', pillColor:'var(--gold)',
+    note:'The rate that sets your loan payments. On <b>7 October</b> the Reserve Bank raised it to <b>5.50%</b>, the first rise since February 2023, and said it will tighten carefully. It now expects the cost of living to average <b>5.2%</b> through March 2027. A cut looks unlikely. If you have a loan, plan on it costing more.'},
+
+  {id:'fx', textCard:true, name:'Foreign-currency savings', pill:'Falling seven weeks', pillColor:'var(--red)',
+    note:'India’s rainy-day fund, spent to stop the rupee falling. It fell for a seventh week to <b>$719.75 billion</b> on 23 October, about $66 billion below the 4 September record.<br><br>Against it, the Reserve Bank has promised away a record <b>$239.2 billion</b> in future dollar sales, leaving roughly <b>$480 billion</b> genuinely free. <b>That promise figure is from 30 September, three weeks older than the savings figure</b>, so treat the free amount as approximate.'},
+
+  {id:'fiscal', textCard:true, name:'Room to cushion prices', pill:'Already spent', pillColor:'var(--red)',
+    note:'Governments soften price shocks by cutting taxes. <b>Diesel tax is already at zero</b>, so there’s nothing left to cut for this one. Either pump prices rise or government borrowing does — both reach you.'},
+
+  {id:'wpi', textCard:true, name:'What shops pay suppliers', pill:'Twice your rate', pillColor:'var(--red)',
+    note:'Moves two to three months before you feel it, so this reaches the shops in <b>December and January</b>. No new figure until mid-November. <b>September’s figure, out 14 October, is 11.39%</b> against <b>5.54%</b> in the shops, with fuel and power up <b>25.9%</b>. A year ago it was 0.13%. <b>That gap closes by shop prices climbing, not the other way round.</b>'},
+];
+
+const GROUPS=[
+  {key:'water',  el:'grid-water',  ids:['monsoon','enso','reservoir','iod']},
+  {key:'air',    el:'grid-air',    ids:['aqi']},
+  {key:'food',   el:'grid-food',   ids:['food','oil_edible','fert']},
+  {key:'energy', el:'grid-energy', ids:['oil','power']},
+  {key:'money',  el:'grid-money',  ids:['inr','cpi','gold']},
+  {key:'ctx',    el:'grid-ctx',    ids:['wpi','fx','fiscal','repo']},
+];
+const MET={}; METRICS.forEach(m=>MET[m.id]=m);
+
+const SCEN = {
+  alert:{name:'C — Critical: essentials under strain', color:'var(--red)',
+    desc:'Water, food and health take priority. Hold cash. Do not commit to anything large.'},
+  watch:{name:'B — Serious: a sustained squeeze', color:'var(--gold)',
+    desc:'Tighten the budget, build up savings, fix big costs now, fill the store cupboard.'},
+  calm:{name:'A / D — Stable for now', color:'var(--green)',
+    desc:'Nothing urgent. An inexpensive, unhurried window to get the slow jobs done.'},
+};
+
+const LEVELS=[
+  {k:'L1', name:'Keep an eye out', color:'var(--green)',
+   now:'Calm — do the slow, cheap jobs now, while there’s no queue.',
+   list:['<b style="color:var(--teal)">Install:</b> rainwater harvesting and a storage tank.',
+         '<b style="color:var(--teal)">Install:</b> air purifier for the elders’ room.',
+         '<b style="color:var(--teal)">Start:</b> book the free solar survey — the process is slow.',
+         'Keep the store cupboard, medicines and inverter topped up.']},
+  {k:'L2', name:'Get ready', color:'var(--gold)',
+   now:'Trouble building — commit to the big installations before prices and queues rise.',
+   list:['<b style="color:var(--teal)">Install:</b> solar panels and a battery.',
+         '<b style="color:var(--teal)">Install:</b> efficient AC for the elders’ room.',
+         'Stock up: one to two months of oil and staples.',
+         'Top up medicines. Check this page weekly.']},
+  {k:'L3', name:'Act now', color:'#e8a23b',
+   now:'It’s here — finish what you started, lock the price, begin nothing new.',
+   list:['<b style="color:var(--teal)">Finish fast:</b> complete any half-done install and fix the price.',
+         'Fill the store cupboard to two or three months.',
+         'Keep about a year of expenses in reachable cash. (General info, not advice.)',
+         'Check the elderly essentials: medicines, cooling, water.']},
+  {k:'L4', name:'Sit tight', color:'var(--red)',
+   now:'Too late to build — run what you own and keep money within reach.',
+   list:['<b style="color:var(--teal)">Start no new installations</b> — use what you have.',
+         'Water first: fill every container, sort purification and cooling.',
+         'Extra staples now, ahead of the price rises.',
+         'Postpone anything large you don’t strictly need.']},
+];
+
+function bandOf(m,v){
+  if(m.dir==='up'){
+    if(v>=m.t.alertMin) return 'alert';
+    if(v>m.t.calmMax) return 'watch';
+    return 'calm';
+  }
+  if(v<=m.t.alertMax) return 'alert';
+  if(v<m.t.calmMin) return 'watch';
+  return 'calm';
+}
+const COL={calm:'var(--green)',watch:'var(--gold)',alert:'var(--red)'};
+const TXT={calm:'Fine',watch:'Watch it',alert:'Gone wrong'};
+const CORE=new Set(['oil','inr','cpi','monsoon','enso']);
+const PTS={calm:0,watch:1,alert:2};
+const wOf=id=>CORE.has(id)?2:1;
+const MAX_STRESS=28, B_THRESH=11, C_THRESH=17;
+const AS_OF='2026-11-01', LEADING_FLASH=true;
+
+function fmtDate(d){
+  const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d); if(!m) return d;
+  const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return parseInt(m[3],10)+' '+M[parseInt(m[2],10)-1];
+}
+let SNAPS={};
+try{SNAPS=JSON.parse(localStorage.getItem('niPlainHist')||'{}')}catch(e){}
+SNAPS[AS_OF]={}; METRICS.forEach(m=>{SNAPS[AS_OF][m.id]=m.base;});
+try{localStorage.setItem('niPlainHist',JSON.stringify(SNAPS));}catch(e){}
+
+function seriesOf(m){
+  const pts=(m.hist||[]).map(p=>({d:p.d,v:p.v}));
+  Object.keys(SNAPS).sort().forEach(d=>{
+    const v=SNAPS[d][m.id];
+    if(v!==undefined && v!==null && !isNaN(v)) pts.push({d:fmtDate(d),v:parseFloat(v)});
+  });
+  return pts;
+}
+function trendOf(m){
+  const s=seriesOf(m);
+  if(s.length<2) return {arrow:'→',cls:'flat',label:'no history',series:s};
+  const a=s[s.length-2].v, b=s[s.length-1].v, delta=b-a;
+  if(Math.abs(delta)<=Math.max(Math.abs(a)*0.002,1e-9))
+    return {arrow:'→',cls:m.info?'ctx':'flat',label:'no change',series:s};
+  const arrow=delta>0?'↑':'↓';
+  if(m.info) return {arrow,cls:'ctx',label:'moved',series:s};
+  const worse = m.dir==='up' ? delta>0 : delta<0;
+  return {arrow,cls:worse?'worse':'better',label:worse?'worse':'better',series:s};
+}
+const TCOL={better:'var(--green)',worse:'var(--red)',flat:'var(--mute)',ctx:'var(--teal-lt)'};
+function spark(series,cls){
+  const vals=series.map(p=>p.v), n=vals.length, w=92,h=22,pad=3;
+  const min=Math.min(...vals),max=Math.max(...vals),rng=(max-min)||Math.abs(max)||1;
+  const X=i=>pad+(n<=1?(w-2*pad)/2:i*(w-2*pad)/(n-1));
+  const Y=v=>pad+(1-(v-min)/rng)*(h-2*pad);
+  const pts=vals.map((v,i)=>X(i).toFixed(1)+','+Y(v).toFixed(1)).join(' ');
+  const c=TCOL[cls]||'var(--mute)';
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><polyline points="${pts}" fill="none" stroke="${c}" stroke-width="1.6" stroke-linejoin="round"/><circle cx="${X(n-1).toFixed(1)}" cy="${Y(vals[n-1]).toFixed(1)}" r="2.2" fill="${c}"/></svg>`;
+}
+function trendHTML(m){
+  const t=trendOf(m);
+  return `<div class="trend">${spark(t.series,t.cls)}<span class="tbadge ${t.cls}">${t.arrow} ${t.label}</span></div>`;
+}
+
+function render(){
+  let stress=0, coreAlerts=0, totalAlerts=0;
+  GROUPS.forEach(g=>{
+    const grid=document.getElementById(g.el); if(!grid) return;
+    grid.innerHTML='';
+    g.ids.forEach(id=>{
+      const m=MET[id]; if(!m) return;
+      const v=m.base;
+      const card=document.createElement('div');
+      card.className='card';
+      if(m.textCard){
+        card.innerHTML=`<div class="bar" style="background:${m.pillColor}"></div>
+        <h3><span>${m.name}</span><span class="pill" style="background:${m.pillColor}">${m.pill}</span></h3>
+        <div class="mdesc">${m.note}</div>`;
+        grid.appendChild(card); return;
+      }
+      if(m.info){
+        card.innerHTML=`<div class="bar" style="background:var(--teal-lt)"></div>
+        <h3><span>${m.name}</span><span class="pill" style="background:var(--teal-lt)">Background</span></h3>
+        <div class="valrow"><span class="valnum">${v.toLocaleString('en-IN')}</span><span class="unit">${m.unit}</span></div>
+        <div class="mdesc">${m.note}</div>`;
+        grid.appendChild(card); return;
+      }
+      const band=bandOf(m,v);
+      stress += wOf(m.id)*PTS[band];
+      if(band==='alert'){ totalAlerts++; if(CORE.has(m.id)) coreAlerts++; }
+      card.innerHTML=`<div class="bar" style="background:${COL[band]}"></div>
+        <h3><span>${m.name}</span><span class="pill" style="background:${COL[band]}">${TXT[band]}</span></h3>
+        <div class="whatis">${m.whatis}</div>
+        <div class="valrow"><span class="valnum">${v.toLocaleString('en-IN')}</span><span class="unit">${m.unit}</span></div>
+        ${m.prev?`<div class="yrago ${m.prevDir||''}"><span>${m.prevWhen}: <span class="yv">${m.prev}</span></span><span class="ynote">${m.prevNote||''}</span></div>`:''}
+        <div class="mdesc">${m.desc}</div>
+        <div class="scale">
+          <span><i class="dot" style="background:var(--green)"></i>${m.calm}</span>
+          <span><i class="dot" style="background:var(--gold)"></i>${m.watch}</span>
+          <span><i class="dot" style="background:var(--red)"></i>${m.alert}</span>
+        </div>`;
+      grid.appendChild(card);
+    });
+  });
+
+  let vb='calm';
+  if(coreAlerts>=2 || totalAlerts>=3 || stress>=C_THRESH) vb='alert';
+  else if(stress>=B_THRESH || totalAlerts>=2) vb='watch';
+  const sc=SCEN[vb], pct=Math.round(stress/MAX_STRESS*100);
+  document.getElementById('verdict').textContent=sc.name;
+  document.getElementById('verdict').style.color=sc.color;
+  document.getElementById('verdictDesc').textContent=sc.desc;
+
+  let prev=0;
+  METRICS.forEach(m=>{
+    if(m.info||m.textCard) return;
+    const s=seriesOf(m);
+    prev += wOf(m.id)*PTS[bandOf(m, s.length>=2 ? s[s.length-2].v : m.base)];
+  });
+  const dp=pct-Math.round(prev/MAX_STRESS*100);
+  const mark=dp===0?'same as last time':(dp>0?`▲ ${dp} worse`:`▼ ${Math.abs(dp)} better`);
+  document.getElementById('meter').innerHTML=
+    `<div class="label" style="text-align:right;margin-bottom:5px">Strain</div>
+     <div class="seg" style="background:${sc.color}"><span style="font-size:27px">${pct}</span><small>OUT OF 100</small><span class="tm">${mark}</span></div>`;
+
+  let lvl = vb==='alert'?3 : vb==='watch'?2 : ((totalAlerts>=1||stress>=8||LEADING_FLASH)?1:0);
+  const L=LEVELS[lvl], ab=document.getElementById('actionbar');
+  ab.style.background=`linear-gradient(135deg, ${L.color}22, var(--slate2))`;
+  ab.style.borderColor=L.color;
+  ab.innerHTML=`<div class="lvl" style="background:${L.color}"><b>${L.k}</b><small>${L.name}</small></div>
+    <div class="ab-txt"><div class="k">Do this now</div>${L.now}</div>`;
+
+  const ladder=document.getElementById('ladder');
+  ladder.innerHTML='';
+  LEVELS.forEach((x,i)=>{
+    const c=document.createElement('div');
+    c.className='lvlcard'+(i===lvl?' active':'');
+    c.innerHTML=`<div class="lbar" style="background:${x.color}"></div>
+      <h4><span class="tag" style="color:${x.color}">${x.k}</span> ${x.name}${i===lvl?' <span class="nowtag">We are here</span>':''}</h4>
+      <ul>${x.list.map(li=>`<li>${li}</li>`).join('')}</ul>`;
+    ladder.appendChild(c);
+  });
+}
+render();
+</script>
+</body>
+</html>
