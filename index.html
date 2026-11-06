@@ -137,13 +137,14 @@
   .sumrow .later{font-size:13.5px;margin-top:3px;color:var(--mute);font-weight:600}
   .sumrow .later b{font-weight:600;color:var(--mute)}
   .sumrow .none{font-size:13.5px;margin-top:5px;color:var(--mute);font-style:italic}
+  a.live{display:inline-block;font-size:13px;font-weight:700;color:var(--teal-lt);margin-top:6px;text-decoration:none;border-bottom:1px solid currentColor}
   .sum-more{display:block;text-align:center;font-size:13.5px;font-weight:700;color:var(--teal-lt);padding:10px;cursor:pointer;margin-top:4px}
 </style>
 </head>
 <body>
   <div class="top">
     <h1>North India Risk Dashboard</h1>
-    <div class="sub">Plain English · Lucknow · 2 November 2026</div>
+    <div class="sub">Plain English · Lucknow · 6 November 2026</div>
   </div>
 
   <input type="radio" name="view" id="v-sum" class="vt" checked>
@@ -162,7 +163,7 @@ Water, food and health take priority. Hold cash for everything except essential 
     </div>
     <div id="meter"><!--auto:start-->
 <div class="label" style="text-align:right;margin-bottom:5px">Strain</div>
-     <div class="seg" style="background:var(--red)"><span style="font-size:27px">54</span><small>OUT OF 100</small><span class="tm">same as last time</span></div>
+     <div class="seg" style="background:var(--red)"><span style="font-size:27px">57</span><small>OUT OF 100</small><span class="tm">▲ 3 worse</span></div>
 <!--auto:end--></div>
   </div>
 
@@ -188,9 +189,9 @@ Water, food and health take priority. Hold cash for everything except essential 
       <div class="sumrow"><div class="bar" style="background:var(--red)"></div>
         <h3><span>🔍 What is coming</span><span class="pill" style="background:var(--red)">Warning</span></h3>
         <p>The early warning signs have not eased. The Pacific is still very warm, which points to a hard summer in 2027.</p><div class="none">Nothing to do yet. Just watch.</div></div>
-      <div class="sumrow"><div class="bar" style="background:var(--green)"></div>
-        <h3><span>🌫 Air</span><span class="pill" style="background:var(--green)">Fine</span></h3>
-        <p>The air is fine today. Diwali on 8 November and the winter cold will make it worse.</p><div class="later">Can wait: <b>if readings pass 200, run an air purifier in the elders’ room.</b></div></div>
+      <div class="sumrow"><div class="bar" style="background:var(--gold)"></div>
+        <h3><span>🌫 Air at Lalbagh</span><span class="pill" style="background:var(--gold)">Watch it</span></h3>
+        <p>The air at Lalbagh has turned poor, and early mornings are worst. Diwali on 8 November will push it higher.</p><div class="do">Now: <b>run an air purifier in the elders’ room. Keep them indoors on mornings after Diwali.</b></div><a class="live" href="https://www.iqair.com/india/uttar-pradesh/lucknow/lalbagh-lucknow-cpcb">See the live Lalbagh reading ›</a></div>
     </div>
     <label class="sum-more" for="v-det">See the full details ›</label>
   </div>
@@ -355,15 +356,15 @@ Water, food and health take priority. Hold cash for everything except essential 
         <div class="mdesc">The rate that sets your loan payments. On <b>7 October</b> the Reserve Bank raised it to <b>5.50%</b>, the first rise since February 2023, and said it will tighten carefully. It now expects the cost of living to average <b>5.2%</b> through March 2027. A cut looks unlikely. If you have a loan, plan on it costing more.</div></div>
 <!--auto:end--></div>
 
-  <h2 class="sec" style="border-left:4px solid var(--green)">🌫 Is the air safe?</h2>
-  <div class="takeaway"><b style="color:var(--green)">Readings eased to about <b>60</b> in the first days of November, in the fine range, against 168 on a private tracker on 15 October; trackers disagree. Smog usually climbs after Diwali on 8 November and through the winter cold. No purifier is needed yet. <b>If readings pass 200, run one in the elders’ room</b>, and keep the elderly indoors on days above 300.</b></div>
+  <h2 class="sec" style="border-left:4px solid var(--gold)">🌫 Is the air safe at Lalbagh?</h2>
+  <div class="takeaway"><b style="color:var(--gold)">The Lalbagh monitor shows the air has turned poor. Fine dust reached <b>180 µg/m³</b> at 5:30am on 6 November, and the day is forecast near <b>200</b> on India’s scale. Diwali on 8 November and the winter cold usually push it higher. <b>Run an air purifier in the elders’ room now</b>, and keep the elderly indoors on mornings above 300.<br><a class="live" href="https://www.iqair.com/india/uttar-pradesh/lucknow/lalbagh-lucknow-cpcb">See the live Lalbagh reading ›</a></b></div>
   <div class="grid" id="grid-air"><!--auto:start-->
-<div class="card"><div class="bar" style="background:var(--green)"></div>
-        <h3><span>Air quality</span><span class="pill" style="background:var(--green)">Fine</span></h3>
+<div class="card"><div class="bar" style="background:var(--gold)"></div>
+        <h3><span>Air quality at Lalbagh</span><span class="pill" style="background:var(--gold)">Watch it</span></h3>
         <div class="whatis">How harmful the air is to breathe. Over 300, the elderly shouldn’t go outside.</div>
-        <div class="valrow"><span class="valnum">60</span><span class="unit">AQI</span></div>
+        <div class="valrow"><span class="valnum">200</span><span class="unit">on India’s scale</span></div>
         
-        <div class="mdesc">Two public trackers showed about 60 on 1 and 2 November, in the fine range, against 168 on a private tracker on 15 October. Trackers disagree. <b>Diwali on 8 November and the winter cold usually push it up.</b></div>
+        <div class="mdesc">From the national pollution board’s Lalbagh monitor. Fine dust hit <b>180 µg/m³</b> at 5:30am on 6 November; the day is forecast near 200. <b>Diwali on 8 November usually pushes it higher.</b> <a class="live" href="https://www.iqair.com/india/uttar-pradesh/lucknow/lalbagh-lucknow-cpcb">Live reading ›</a></div>
         <div class="scale">
           <span><i class="dot" style="background:var(--green)"></i>Tolerable under 100</span>
           <span><i class="dot" style="background:var(--gold)"></i>Harmful 100–300</span>
@@ -389,7 +390,7 @@ Water, food and health take priority. Hold cash for everything except essential 
 <!--auto:end--></div>
   </div>
 
-  <div class="disc">Figures as of 2 November 2026. Thresholds set in advance so they can’t be argued with later. A personal planning aid — not financial advice, not an official forecast.</div>
+  <div class="disc">Figures as of 2 November 2026; air quality as of 6 November. Thresholds set in advance so they can’t be argued with later. A personal planning aid — not financial advice, not an official forecast.</div>
 
 <script>
 // 'up' = higher is worse. 'down' = lower is worse.
@@ -441,10 +442,10 @@ const METRICS = [
     calm:'Fine over 95%', watch:'Worrying 90–95%', alert:'Serious under 90%',
     t:{calmMin:95, alertMax:90}},
 
-  {id:'aqi', name:'Air quality', unit:'AQI', base:60, dir:'up',
-    hist:[{d:'18 Jun',v:105},{d:'1 Jul',v:80},{d:'14 Jul',v:109},{d:'6 Aug',v:105},{d:'15 Aug',v:118},{d:'2 Sep',v:98},{d:'15 Sep',v:98},{d:'1 Oct',v:56},{d:'15 Oct',v:168},{d:'1 Nov',v:60}],
+  {id:'aqi', name:'Air quality at Lalbagh', unit:'on India’s scale', base:200, dir:'up',
+    hist:[{d:'18 Jun',v:105},{d:'1 Jul',v:80},{d:'14 Jul',v:109},{d:'6 Aug',v:105},{d:'15 Aug',v:118},{d:'2 Sep',v:98},{d:'15 Sep',v:98},{d:'1 Oct',v:56},{d:'15 Oct',v:168},{d:'1 Nov',v:60},{d:'2 Nov',v:60}],
     whatis:'How harmful the air is to breathe. Over 300, the elderly shouldn’t go outside.',
-    desc:'Two public trackers showed about 60 on 1 and 2 November, in the fine range, against 168 on a private tracker on 15 October. Trackers disagree. <b>Diwali on 8 November and the winter cold usually push it up.</b>',
+    desc:'From the national pollution board’s Lalbagh monitor. Fine dust hit <b>180 µg/m³</b> at 5:30am on 6 November; the day is forecast near 200. <b>Diwali on 8 November usually pushes it higher.</b> <a class="live" href="https://www.iqair.com/india/uttar-pradesh/lucknow/lalbagh-lucknow-cpcb">Live reading ›</a>',
     calm:'Tolerable under 100', watch:'Harmful 100–300', alert:'Dangerous over 300',
     t:{calmMax:100, alertMin:300}},
 
@@ -553,7 +554,7 @@ const CORE=new Set(['oil','inr','cpi','monsoon','enso']);
 const PTS={calm:0,watch:1,alert:2};
 const wOf=id=>CORE.has(id)?2:1;
 const MAX_STRESS=28, B_THRESH=11, C_THRESH=17;
-const AS_OF='2026-11-02', LEADING_FLASH=true;
+const AS_OF='2026-11-06', LEADING_FLASH=true;
 
 function fmtDate(d){
   const m=/^(\d{4})-(\d{2})-(\d{2})$/.exec(d); if(!m) return d;
